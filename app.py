@@ -7,17 +7,18 @@ from time import sleep
 import pyautogui
 import os 
 
+
 # Abrir o WhatsApp Web
 webbrowser.open('https://web.whatsapp.com/')
 sleep(30)
 
 #Lê a planilha com pandas para filtrar contatos com status diferente de 'ok'
 df = pd.read_excel('clientes.xlsx')
-contatos_para_enviar = df[df['Status'].str.lower() != 'ok']
+contatos_para_enviar = df[df['status'].astype(str).str.lower().str.strip() != 'ok']
 
 # Ler planilha e guardar informações sobre nome, telefone e data de vencimento
 workbook = openpyxl.load_workbook('clientes.xlsx')
-pagina_clientes = workbook['Sheet1']
+pagina_clientes = workbook['clientes']
 
 #Loop pelas linhas da planilha (a partir da 2ª linha)
 for linha in pagina_clientes.iter_rows(min_row=2):
