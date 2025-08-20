@@ -12,11 +12,11 @@ webbrowser.open('https://web.whatsapp.com/')
 sleep(30)
 
 #Lê a planilha com pandas para filtrar contatos com status diferente de 'ok'
-df = pd.read_excel('clientes.xlsx')
+df = pd.read_excel('clientes.csv')
 contatos_para_enviar = df[df['Status'].str.lower() != 'ok']
 
 # Ler planilha e guardar informações sobre nome, telefone e data de vencimento
-workbook = openpyxl.load_workbook('clientes.xlsx')
+workbook = openpyxl.load_workbook('clientes.csv')
 pagina_clientes = workbook['Sheet1']
 
 #Loop pelas linhas da planilha (a partir da 2ª linha)
@@ -55,4 +55,4 @@ for linha in pagina_clientes.iter_rows(min_row=2):
         with open('erros.csv','a',newline='',encoding='utf-8') as arquivo:
             arquivo.write(f'{nome},{telefone}{os.linesep}')
             
-    workbook.save('clientes.xlsx')
+    workbook.save('clientes.csv')
